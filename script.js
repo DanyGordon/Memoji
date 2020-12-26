@@ -35,7 +35,7 @@
                 }
             }
 
-            if (Array.from(flippedCard).length % 2 === 0) {
+            if (Array.from(flippedCard).length % 2 === 0 && flippedCard.length > 0) {
                 let result = isTheSame(flippedCard);
                 if (result) {
                     isAllCardSame(gameInterface);
@@ -101,17 +101,9 @@
             let target = event.target;
             if (target.classList.contains('off_modal')) {
                 event.currentTarget.removeAttribute('style');
-                tryAgain('game-interface');
+                resetCard('game-interface');
             }
         });
-    }
-
-    function tryAgain (id) {
-        const gameInterface = document.getElementById(id);
-        let callback = function () {
-            return randomOrder(gameInterface);
-        }
-        resetCard(callback());
     }
 
     function randomOrder(cardsContainer) {
@@ -155,7 +147,8 @@
         return arr;
     }
 
-    function resetCard(callback) {
+    function resetCard(id) {
+        const gameInterface = document.getElementById(id);
         let cardField = document.getElementById('game-interface');
         cardField = Array.from(cardField.children).filter((card) => {
             return card.classList.contains("flipper");
@@ -164,7 +157,7 @@
             card.querySelector('.card-container').classList.remove('flipp', 'true', 'false');
             card.querySelector('.card-front').classList.remove('different', 'same');
         }
-        setTimeout(() => callback(), 300);
+        setTimeout(() => randomOrder(gameInterface), 500);
     };
 
     function timerInit() {
