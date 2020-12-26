@@ -1,0 +1,231 @@
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #cfd0cf;
+    color: #434344;
+}
+
+.main-header {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.main-header > h1 {
+    font: 600 42px Arial;
+    text-align: center;
+    line-height: 47px;
+}
+
+.wrapper {
+    width: 61%;
+    margin: auto;
+}
+
+article.game-content {
+    width: 100%;
+    padding: 0px 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 130px);
+    grid-template-rows: repeat(4, 130px);
+    grid-gap: 25px 25px;
+}
+
+.flipper {
+    width: 100%;
+    height: 100%;
+}
+
+.card-container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: 5px solid white;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px #00000080;
+    background: white;
+    perspective: 600px;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+
+.flipp {
+    transform: rotateY(-180deg);
+}
+
+.card-flip {
+    transform: rotateY(-180deg);
+}
+
+.card-front {
+    width: 100%;
+    height: 100%;
+    background: white;
+    text-align: center;
+    font-size: 75px;
+    z-index: 0;
+    transform: rotateY(180deg);
+}
+
+.card-content {
+    font-family: "Noto Color Emoji";
+    margin: 15px 0px;
+    width: 100%;
+    display: block;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.card-back {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top right, #22ab93, #19668d);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.card-front, .card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.different {
+    transition-duration: 1s;
+    background-color: #f44336;
+}
+
+.false {
+    transition-duration: 1s;
+    border-color: #f44336;
+}
+
+.same {
+    transition-duration: 1s;
+    background-color: #5ad66f;
+}
+
+.true {
+    transition-duration: 1s;
+    border-color: #5ad66f;
+}
+
+#timer {
+    width: 100px;
+    margin: 30px auto;
+    font: 600 32px "Araial, Helvetica, sans-serif";
+    line-height: 36px;
+}
+
+#win {
+    display: none;
+}
+
+#loose {
+    display: none
+}
+
+.modal {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    pointer-events: auto;
+    z-index: 0;
+    background-color: #3a3a3a8f;
+}
+
+.modalwindow {
+    min-width: 350px;
+    width: min-content;
+    background: #fff;
+    pointer-events: auto;
+    opacity: 1;
+    margin: 23% auto;
+    padding: 30px 0px;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.modal_header > h1 {
+    display: block;
+    font-size: 48px;
+    text-align: center;
+}
+
+h1 span {
+    display: inline-block;
+    animation: jumping 1.1s ease-in-out infinite;
+    -webkit-animation: jumping 1.1s ease-in-out infinite;
+}
+
+.off_modal {
+    display: block;
+    width: 150px;
+    height: 40px;
+    margin: 40px auto 0px;
+    border-radius: 9px;
+    padding: 10px 30px 0px;
+    background: linear-gradient(to right, #19668d, #22ab93);
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 1px 1px 1px;
+    box-sizing: border-box;
+}
+
+.off_modal:hover,
+.off_modal:active {
+    box-shadow: inset 2px 1px 8px;
+}
+
+@font-face {
+    font-family: "Noto Color Emoji";
+    src: url(https://gitcdn.xyz/repo/googlefonts/noto-emoji/master/fonts/NotoColorEmoji.ttf);
+}
+
+@keyframes jumping {
+    0%,
+    100% {
+        transform: translateY(0) scaleY(1);
+    }
+    50% {
+        transform: translateY(-15px) scaleY(1.5);
+    } 
+}
+
+@-webkit-keyframes jumping {
+    0%,
+    100% {
+        transform: translateY(0) scaleY(1);
+    }
+    50% {
+        transform: translateY(-15px) scaleY(1.5);
+    }
+}
+
+h1 span:nth-child(1) {
+    animation-delay: 0.1s;
+}
+h1 span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+h1 span:nth-child(3) {
+    animation-delay: 0.5s;
+}

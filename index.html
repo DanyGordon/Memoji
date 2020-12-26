@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memory</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Memoji</h1>
+    </header>
+    <main class="wrapper">
+        <article class="game-content" id="game-interface">
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐱</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐼</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🦁</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐶</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐞</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🦄</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐶</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🦄</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐼</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🦁</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐱</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐞 </span>
+                    </div>
+                </div>
+            </div>
+            <!-- + 8 cards-->
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐺</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐺</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐻</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐻</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐴</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐴</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐯</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flipper">
+                <div class="card-container">
+                    <div class="card-back"></div>
+                    <div class="card-front">
+                        <span class="card-content">🐯</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <div id="timer" hidden>
+            <span class="time">01:00</span>
+        </div>
+    </main>
+    <footer></footer>
+    <div id="win" class="modal">
+        <div class="modalwindow">
+            <header class="modal_header"><h1>
+                <span>W</span>
+                <span>i</span>
+                <span>n</span>
+            </h1></header>
+            <a href="#" class="off_modal win">Play again</a>
+        </div>
+    </div>
+    <div id="loose" class="modal">
+        <div class="modalwindow">
+            <header class="modal_header"><h1>
+                <span>L</span>
+                <span>o</span>
+                <span>o</span>
+                <span>s</span>
+                <span>e</span>
+            </h1></header>
+            <a href="#" class="off_modal loose">Try again</a>
+        </div>
+    </div>
+    <!--<script src="./script_demo.js"></script>-->
+    <script src="./script.js"></script>
+    <script>
+        gameInit("game-interface");
+    </script>
+</body>
+</html>
