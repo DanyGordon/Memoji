@@ -2,6 +2,7 @@
 
 (function () {
     
+    const gameInterface = document.getElementById('game-interface');
     const cardClassList = ['card-container', 'card-back'];
     const cardActiveClass = {
         flipped: 'flipp',
@@ -13,18 +14,17 @@
         inner: 'card-content'
     };
     const cardNumber = 20;
+    const gridColumn = 5;
     let flippedCard = [];
 
-    window.gameInit = function (id) {
-        const gameInterface = document.getElementById(id);
+    window.gameInit = function () {
         randomOrder(gameInterface);
         gameInterface.addEventListener('click', (event) => {
             let target = event.target;
 
-            if (cardClassList.find(className => {
-                return target.classList.contains(className) && 
-                !target.classList.contains(cardActiveClass.flipped);
-            })) {
+            if (cardClassList.find(className => target.classList.contains(className) 
+                && !target.classList.contains(cardActiveClass.flipped))
+            ) {
 
                 reverseToBack(document.querySelectorAll('.' + cardActiveClass.false));
                 if (!target.classList.contains(cardClassList[0])) {
@@ -64,7 +64,9 @@
         let uncheckedCard = Array.from(cards)
             .filter(card => !card.classList.contains(cardActiveClass.false) && 
                 !card.classList.contains(cardActiveClass.true));
-        if (uncheckedCard[0].querySelector('.' + cardActiveClass.inner).innerHTML.trim() == 
+
+        if (uncheckedCard.length
+            && uncheckedCard[0].querySelector('.' + cardActiveClass.inner).innerHTML.trim() == 
             uncheckedCard[1].querySelector('.' + cardActiveClass.inner).innerHTML.trim()) {
 
             for (let card of uncheckedCard) {
@@ -73,8 +75,7 @@
                     .add(cardActiveClass.success);
             }
             return true;
-        }
-        else {
+        } else {
             for (let card of uncheckedCard) {
                 card.classList.add(cardActiveClass.false);
                 card.querySelector('.' + cardActiveClass.front).classList
@@ -85,13 +86,8 @@
     }
 
     function isAllCardSame (container) {
-        let allCard = container.querySelectorAll('.' + cardActiveClass.success);
-        if (Array.from(allCard).length === cardNumber) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        const allCard = container.querySelectorAll('.' + cardActiveClass.success);
+        return Array.from(allCard).length === cardNumber;
     }
 
     function displayPopUp (id) {
@@ -101,77 +97,32 @@
             let target = event.target;
             if (target.classList.contains('off_modal')) {
                 event.currentTarget.removeAttribute('style');
-                resetCard('game-interface');
+                resetCard();
             }
         });
     }
 
-    function randomOrder(cardsContainer) {
-        const gridColumn = 5;
-        let cardsCollection = Array.from(cardsContainer.childNodes).filter(function(card){
-            if(card.classList == "flipper") {
-                return card;
-            }
-        });
-        cardsCollection = shuffle(cardsCollection);
-        for(let i = 0; i < cardsCollection.length; i++) {
-            cardsCollection[i].setAttribute('style',
-            `grid-column-start: ${i+1}; grid-column-end: ${i+2};`);
-            if(i < gridColumn) {
-                cardsCollection[i].setAttribute('style',
-                `grid-row-start: ${1}; grid-row-end: ${1};`);
-            }
-            else if(i < gridColumn*2) {
-                cardsCollection[i].setAttribute('style',
-                `grid-row-start: ${2}; grid-row-end: ${2};`);
-            }
-            else if(i < gridColumn*3) {
-                cardsCollection[i].setAttribute('style',
-                `grid-row-start: ${3}; grid-row-end: ${3};`);
-            }
-            else if(i < gridColumn*4) {
-                cardsCollection[i].setAttribute('style',
-                `grid-row-start: ${4}; grid-row-end: ${4};`);
-            }
-        }
-    }
-    
-    function shuffle(arr){
-        var j, temp;
-        for(var i = arr.length - 1; i > 0; i--){
-            j = Math.floor(Math.random()*(i + 1));
-            temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-        }
-        return arr;
-    }
-
-    function resetCard(id) {
-        const gameInterface = document.getElementById(id);
-        let cardField = document.getElementById('game-interface');
-        cardField = Array.from(cardField.children).filter((card) => {
-            return card.classList.contains("flipper");
-        });
+    function resetCard() {
+        const cardField = Array.from(gameInterface.children)
+            .filter(card => card.classList.contains("flipper"));
         for(let card of cardField) {
             card.querySelector('.card-container').classList.remove('flipp', 'true', 'false');
             card.querySelector('.card-front').classList.remove('different', 'same');
         }
-        setTimeout(() => randomOrder(gameInterface), 500);
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
     };
 
     function timerInit() {
-        const gameInterface = document.getElementById('game-interface');
-        let timer = document.getElementById('timer');
+        const timer = document.getElementById('timer');
         let time = timer.children[0].innerHTML.trim();
         timer.hidden = false;
 
-        let timerRun = setInterval(function() {
+        const timerRun = setInterval(function() {
             let result = isAllCardSame(gameInterface);
             if(time == 0) {
-                stop(result, timer, timerRun);
-                setTimeout(() => { clearInterval(timerRun); timer.hidden = true; });
-                return;
+                return stop(result, timer, timerRun);
             }
             if(time == '01:00') {
                 timer.children[0].innerHTML = '00:59';
@@ -181,8 +132,7 @@
                 if(typeof time == 'number') {
                     time--;
                     if(result) {
-                        stop(result, timer, timerRun);
-                        return;
+                        return stop(result, timer, timerRun);
                     }
                     if(time < 10) {
                         timer.children[0].innerHTML = '00:0' + time;
@@ -210,5 +160,46 @@
             return false;
         }
     }
+
+    function randomOrder(cardsContainer) {
+        let cardsCollection = Array.from(cardsContainer.childNodes)
+            .filter(card => card.classList == "flipper");
+        cardsCollection = shuffle(cardsCollection);
+        const keys = Array.from(mapOfGridRowSetting.keys());
+        for(let i = 0; i < cardsCollection.length; i++) {
+            cardsCollection[i].setAttribute('style',
+            `grid-column-start: ${i+1}; grid-column-end: ${i+2};`);
+            const key = keys.find(key => i < key);
+            if (key) {
+                mapOfGridRowSetting.get(key)(cardsCollection, i);
+            }
+        }
+    }
+    
+    function shuffle(arr){
+        var j, temp;
+        for(var i = arr.length - 1; i > 0; i--){
+            j = Math.floor(Math.random()*(i + 1));
+            temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+        }
+        return arr;
+    }
+
+    var mapOfGridRowSetting = new Map();
+    mapOfGridRowSetting
+        .set(gridColumn * 1, (cardsCollection, i) => {
+            cardsCollection[i].setAttribute('style',`grid-row-start: ${1}; grid-row-end: ${1};`);
+        })
+        .set(gridColumn * 2, (cardsCollection, i) => {
+            cardsCollection[i].setAttribute('style',`grid-row-start: ${2}; grid-row-end: ${2};`);
+        })
+        .set(gridColumn * 3, (cardsCollection, i) => {
+            cardsCollection[i].setAttribute('style',`grid-row-start: ${3}; grid-row-end: ${3};`);
+        })
+        .set(gridColumn * 4, (cardsCollection, i) => {
+            cardsCollection[i].setAttribute('style',`grid-row-start: ${4}; grid-row-end: ${4};`);
+        })
     
 }());
